@@ -1,0 +1,11 @@
+import { mySocial } from "../myData";
+import SocialItem from "./SocialItem";
+export default function SocialList() {
+  return (
+    <div className="social-container">
+      {mySocial.map((social) => {
+        return <SocialItem social={social} size={30} />;
+      })}
+    </div>
+  );
+}
