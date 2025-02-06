@@ -7,7 +7,12 @@ import Debt from "../components/Debt";
 import Chart from "../components/Chart";
 import Loader from "../components/Loader";
 import DataNotFound from "../components/DataNotFound";
-import { getExpenseData, getIncomesData } from "../services/api.js";
+import {
+  getExpenseData,
+  getIncomesData,
+  deleteExpenseData,
+  deleteIncomeData,
+} from "../services/api.js";
 
 const URL = `http://localhost:9000`;
 
@@ -18,6 +23,18 @@ export default function FinancePage() {
   const [incomes, setIncomes] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [debt, setDebt] = useState(0);
+
+  function handleDeleteIncome(id) {
+    deleteIncomeData(id).then(() =>
+      setIncomes((prev) => prev.filter((income) => income.id !== id))
+    );
+  }
+
+  function handleDeleteExpense(id) {
+    deleteExpenseData(id).then(() =>
+      setExpenses((prev) => prev.filter((income) => income.id !== id))
+    );
+  }
 
   function sortNet(net) {
     return net.sort((a, b) => {
@@ -52,7 +69,7 @@ export default function FinancePage() {
     }
 
     fetchIncomes();
-  }, [incomes]);
+  }, []);
 
   useEffect(() => {
     async function fetchExpenses() {
@@ -64,6 +81,8 @@ export default function FinancePage() {
         if (!data) {
           throw new Error("Expenses data are not found");
         }
+        console.log(data);
+
         const sortedData = sortNet(data);
         setExpenses(sortedData);
         setError("");
@@ -76,7 +95,7 @@ export default function FinancePage() {
     }
 
     fetchExpenses();
-  }, [expenses]);
+  }, []);
 
   function calculateTotalIncomes(incomes) {
     return incomes
@@ -115,10 +134,10 @@ export default function FinancePage() {
               totalDebt={calculateDebt()}
             />
             {incomes.map((income) => (
-              <IncomesItem income={income} />
+              <IncomesItem income={income} onDelete={handleDeleteIncome} />
             ))}
             {expenses.map((expense) => (
-              <ExpensesItem expense={expense} />
+              <ExpensesItem expense={expense} onDelete={handleDeleteExpense} />
             ))}
           </>
         )}

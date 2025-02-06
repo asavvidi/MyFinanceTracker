@@ -12,15 +12,15 @@ const mySocial = [
 ];
 
 const myMonths = [
-  "01",
-  "02",
-  "03",
-  "04",
-  "05",
-  "06",
-  "07",
-  "08",
-  "09",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
   "10",
   "11",
   "12",
@@ -38,14 +38,5 @@ const myYears = [
   "2024",
   "2025",
 ];
-const initalUsers = [
-  {
-    id: 1,
-    firstName: "alekos",
-    lastName: "Savvidis",
-    email: "alexkos7savv@gmail.com",
-    password: "2397065890",
-  },
-];
 
-export { initalUsers, myYears, myMonths, mySocial };
+export { myYears, myMonths, mySocial };

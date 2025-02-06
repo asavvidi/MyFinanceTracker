@@ -5,5 +5,6 @@ const expensesRouter = Router();
 
 expensesRouter.get("/", controller.getExpenses);
 expensesRouter.post("/", controller.addExpense);
+expensesRouter.delete("/:id", controller.deleteExpense);
 
 export { expensesRouter };

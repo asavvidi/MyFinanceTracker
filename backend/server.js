@@ -20,7 +20,7 @@ function connectToPostgres() {
     .authenticate()
     .then(() => log.info(`Connection to database was succesfull`))
     .catch((error) =>
-      log.error(`❌ Unable to connect to the database:`, error.message)
+      log.error(`Unable to connect to the database:`, error.message)
     );
 
   return database;

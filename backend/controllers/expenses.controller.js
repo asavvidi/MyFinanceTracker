@@ -8,6 +8,10 @@ function addExpense(req, res, next) {
   services.addExpense(req, res, next, Expense);
 }
 
-const expenseControllers = { getExpenses, addExpense };
+function deleteExpense(req, res, next) {
+  services.deleteExpense(req, res, next, Expense);
+}
+
+const expenseControllers = { getExpenses, addExpense, deleteExpense };
 
 export { expenseControllers };

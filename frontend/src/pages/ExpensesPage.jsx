@@ -7,6 +7,7 @@ import Select from "../components/Select";
 import Button from "../components/Button";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { addExpenseData } from "../services/api";
 
 export default function ExpensesPage({ onAddExpense, expenses }) {
   const months = myMonths;
@@ -17,25 +18,32 @@ export default function ExpensesPage({ onAddExpense, expenses }) {
   const [category, setCategory] = useState("");
   const [amount, setAmound] = useState("");
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (!month || !year || !amount || !category) return;
-    const id = crypto.randomUUID();
     const newExpense = {
-      id,
+      user_id: "697afb7d-21ec-4600-8b24-a868c9fd7ff8",
       amount,
       category,
       month,
       year,
     };
 
-    onAddExpense(newExpense);
+    try {
+      const response = await addExpenseData(newExpense).catch((err) =>
+        console.log(err)
+      );
 
-    setAmound("");
-    setCategory("");
-    setMonth("");
-    setYear("");
+      console.log(response?.data);
+
+      setAmound("");
+      setCategory("");
+      setMonth("");
+      setYear("");
+    } catch (err) {
+      console.log("Error adding expense", err);
+    }
   }
 
   return (
@@ -65,14 +73,14 @@ export default function ExpensesPage({ onAddExpense, expenses }) {
             <Select
               value={month}
               placeholder="Month"
-              onChange={(e) => setMonth(e.target.value)}
+              onChange={(e) => setMonth(Number(e.target.value))}
               options={months}
             ></Select>
 
             <Select
               value={year}
               placeholder="Year"
-              onChange={(e) => setYear(e.target.value)}
+              onChange={(e) => setYear(Number(e.target.value))}
               options={years}
             ></Select>
           </div>
@@ -83,16 +91,6 @@ export default function ExpensesPage({ onAddExpense, expenses }) {
             Finish
           </Link>
         </div>
-        {/*expenses?.map((expense) => {
-        return (
-          <div key={expense?.id}>
-            <span>{expense?.amount}</span>
-            <span>{expense?.month}</span>
-            <span>{expense?.year}</span>
-            <span>{expense?.cactegory}</span>
-          </div>
-        );
-      })*/}
       </div>
       <Footer />
     </div>

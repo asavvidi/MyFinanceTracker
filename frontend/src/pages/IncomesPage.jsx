@@ -7,6 +7,7 @@ import Button from "../components/Button";
 import InputField from "../components/InputField";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { addIncomeData, deleteIncomeData } from "../services/api";
 
 export default function IncomesPage({ onAddIncome, incomes }) {
   const navigate = useNavigate();
@@ -18,25 +19,33 @@ export default function IncomesPage({ onAddIncome, incomes }) {
   const [source, setSource] = useState("");
   const [amount, setAmount] = useState("");
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (!month || !year || !amount || !source) return;
-    const id = crypto.randomUUID();
+
     const newIncome = {
-      id,
+      user_id: "697afb7d-21ec-4600-8b24-a868c9fd7ff8",
       amount,
       source,
       month,
       year,
     };
 
-    onAddIncome(newIncome);
+    try {
+      const response = await addIncomeData(newIncome).catch((err) =>
+        console.log(err)
+      );
 
-    setAmount("");
-    setSource("");
-    setMonth("");
-    setYear("");
+      console.log(response?.data);
+
+      setAmount("");
+      setSource("");
+      setMonth("");
+      setYear("");
+    } catch (err) {
+      console.log(`Error adding income`, err);
+    }
   }
 
   return (
@@ -66,14 +75,14 @@ export default function IncomesPage({ onAddIncome, incomes }) {
             <Select
               value={month}
               placeholder="Month"
-              onChange={(e) => setMonth(e.target.value)}
+              onChange={(e) => setMonth(Number(e.target.value))}
               options={months}
             ></Select>
 
             <Select
               value={year}
               placeholder="Year"
-              onChange={(e) => setYear(e.target.value)}
+              onChange={(e) => setYear(Number(e.target.value))}
               options={years}
             ></Select>
           </div>
@@ -90,16 +99,6 @@ export default function IncomesPage({ onAddIncome, incomes }) {
             Finish
           </Link>
         </div>
-        {incomes?.map((income) => {
-          return (
-            <div key={income?.id}>
-              <span>{income?.amount} </span>
-              <span>{income?.month} </span>
-              <span>{income?.year} </span>
-              <span>{income?.source} </span>
-            </div>
-          );
-        })}
       </div>
       <Footer />
     </div>

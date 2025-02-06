@@ -8,9 +8,14 @@ function getIncomes(req, res, next) {
 function addIncome(req, res, next) {
   services.addIncome(req, res, next, Income);
 }
+
+function deleteIncome(req, res, next) {
+  services.deleteIncome(req, res, next, Income);
+}
 const incomeControllers = {
   getIncomes,
   addIncome,
+  deleteIncome,
 };
 
 export { incomeControllers };

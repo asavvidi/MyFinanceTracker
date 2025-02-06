@@ -3,7 +3,7 @@ import { User } from "../models/users.models.js";
 async function getIncomes(req, res, next, Model) {
   const incomes = await Model.findAll();
   if (!incomes || incomes.length === 0)
-    res.status(204).send({ message: "Incomes are empty!" });
+    res.status(404).send({ message: "Incomes are empty!" });
   res
     .status(201)
     .send({ message: "Retrieve incomes succesfully", data: incomes });
@@ -11,7 +11,7 @@ async function getIncomes(req, res, next, Model) {
 
 async function addIncome(req, res, next, Model) {
   const { user_id, amount, source, month, year } = req.body;
-  if (!user_id) return res.status(400).send({ message: "user id is required" });
+  if (!user_id) return res.status(404).send({ message: "user id is required" });
 
   /*const user = await User.findOne({ where: { id: user_id } });
   if (!user) return res.status(404).send({ message: "User not found" });*/
@@ -30,5 +30,13 @@ async function addIncome(req, res, next, Model) {
     .send({ message: "Income add succesfully", data: newIncome });
 }
 
-const services = { getIncomes, addIncome };
+async function deleteIncome(req, res, next, Model) {
+  const { id } = req.body;
+  const response = await Model.destroy({ where: { id } });
+  if (!response)
+    return res.status(404).send({ message: "Error deleting income" });
+  return res.status(200).send({ message: "Income deleted succesfully" });
+}
+
+const services = { getIncomes, addIncome, deleteIncome };
 export { services };

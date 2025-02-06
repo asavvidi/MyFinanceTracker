@@ -5,5 +5,6 @@ const incomesRouter = Router();
 
 incomesRouter.get("/", controller.getIncomes);
 incomesRouter.post("/", controller.addIncome);
+incomesRouter.delete("/:id", controller.deleteIncome);
 
 export { incomesRouter };

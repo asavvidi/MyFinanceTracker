@@ -1,7 +1,7 @@
 async function getExpenses(req, res, next, Model) {
   const expenses = await Model.findAll();
   if (!expenses || !expenses.length)
-    return res.status(204).send({ message: "Expenses not found or empty" });
+    return res.status(404).send({ message: "Expenses not found or empty" });
   return res
     .status(201)
     .send({ message: "Retrieve expenses succesfully ", data: expenses });
@@ -9,7 +9,7 @@ async function getExpenses(req, res, next, Model) {
 
 async function addExpense(req, res, next, Model) {
   const { user_id, amount, category, month, year } = req.body;
-  if (!user_id) return res.status(400).send({ message: "user id is required" });
+  if (!user_id) return res.status(404).send({ message: "user id is required" });
 
   const newExpense = await Model.create({
     user_id,
@@ -22,8 +22,16 @@ async function addExpense(req, res, next, Model) {
     return res.status(404).send({ message: "Error adding expense" });
   return res
     .status(201)
-    .send({ message: "Income add succesfully", data: newExpense });
+    .send({ message: "Expense add succesfully", data: newExpense });
 }
 
-const services = { getExpenses, addExpense };
+async function deleteExpense(req, res, next, Model) {
+  const { id } = req.body;
+  const response = await Model.destroy({ where: { id } });
+  if (!response)
+    return res.status(404).send({ message: "Error deleting expense" });
+  return res.status(200).send({ message: "Expense deleted succesfully" });
+}
+
+const services = { getExpenses, addExpense, deleteExpense };
 export { services };

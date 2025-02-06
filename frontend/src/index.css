@@ -50,6 +50,17 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
   }
+  & .dltItem {
+    cursor: pointer;
+    display: flex;
+    justify-content: end;
+    font-size: 0.2rem;
+    transition: all 0.3s ease-in-out;
+  }
+  & .dltItem:hover {
+    transform: scale(1.05);
+  }
+
   & .navTo {
     padding: 0.5rem;
     border-radius: 5px;
@@ -464,5 +475,27 @@ body {
     font-size: 3rem;
     font-weight: bold;
     text-align: center;
+  }
+}
+
+.sureCont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 0.5rem;
+  gap: 2rem;
+  & h1 {
+    color: var(--text-color);
+  }
+
+  & .sureBtnCont {
+    display: flex;
+    gap: 2rem;
+    & .sureBtn {
+      cursor: pointer;
+    }
   }
 }

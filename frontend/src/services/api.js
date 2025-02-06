@@ -18,4 +18,41 @@ async function getExpenseData() {
   return expenseData;
 }
 
-export { getExpenseData, getIncomesData };
+async function addIncomeData(data) {
+  const response = await databaseConnect
+    .post("api/incomes", data)
+    .catch((err) => console.log(err));
+  return response;
+}
+
+async function addExpenseData(data) {
+  const response = await databaseConnect
+    .post("api/expenses", data)
+    .catch((err) => console.log(err));
+  return response;
+}
+
+async function deleteIncomeData({ id }) {
+  const response = await databaseConnect
+    .delete(`api/incomes/?id=${id}`)
+    .catch((err) => console.log(err));
+
+  return response;
+}
+
+async function deleteExpenseData({ id }) {
+  const response = await databaseConnect
+    .delete(`api/expenses/?id=${id}`)
+    .catch((err) => console.log(err));
+
+  return response;
+}
+
+export {
+  getExpenseData,
+  getIncomesData,
+  deleteExpenseData,
+  deleteIncomeData,
+  addExpenseData,
+  addIncomeData,
+};
