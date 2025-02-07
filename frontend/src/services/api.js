@@ -1,5 +1,20 @@
 import { databaseConnect } from "./database.js";
 
+async function registerUser(data) {
+  const response = await databaseConnect
+    .post("api/user/register", data)
+    .catch((err) => console.log(err));
+  return response;
+}
+
+async function loginUser(data) {
+  const response = await databaseConnect
+    .post("api/user/login", data)
+    .catch((err) => console.log(err));
+
+  return response;
+}
+
 async function getIncomesData() {
   const incomeResponse = await databaseConnect
     .get("api/incomes")
@@ -55,4 +70,6 @@ export {
   deleteIncomeData,
   addExpenseData,
   addIncomeData,
+  registerUser,
+  loginUser,
 };

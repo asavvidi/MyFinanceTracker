@@ -7,9 +7,9 @@ import Button from "../components/Button";
 import InputField from "../components/InputField";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { addIncomeData, deleteIncomeData } from "../services/api";
+import { addIncomeData } from "../services/api";
 
-export default function IncomesPage({ onAddIncome, incomes }) {
+export default function IncomesPage() {
   const navigate = useNavigate();
   const months = myMonths;
   const years = myYears;

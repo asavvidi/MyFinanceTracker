@@ -9,7 +9,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { addExpenseData } from "../services/api";
 
-export default function ExpensesPage({ onAddExpense, expenses }) {
+export default function ExpensesPage() {
   const months = myMonths;
   const years = myYears;
 

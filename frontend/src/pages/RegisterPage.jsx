@@ -5,8 +5,9 @@ import Form from "../components/Form";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link, useNavigate } from "react-router-dom";
+import { registerUser } from "../services/api.js";
 
-export default function RegisterPage({ onAddUser, onIsRegister }) {
+export default function RegisterPage() {
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -14,27 +15,33 @@ export default function RegisterPage({ onAddUser, onIsRegister }) {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (!firstName || !lastName || !email || !password) return;
 
-    const id = crypto.randomUUID();
     const newUser = {
-      id,
       firstName,
       lastName,
       email,
       password,
     };
-    console.log(newUser);
-    onAddUser(newUser);
 
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPassword("");
-    onIsRegister();
+    try {
+      const response = await registerUser(newUser);
+      if (!response || !response?.data) {
+        console.log(`Register failed, no register data found`);
+        return;
+      }
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassword("");
+
+      navigate("/incomes");
+    } catch (error) {
+      console.log("Error while trying to register user", error);
+    }
   }
 
   return (
@@ -75,7 +82,7 @@ export default function RegisterPage({ onAddUser, onIsRegister }) {
             required
           />
 
-          <Button className="subButton" onClick={() => navigate("/incomes")}>
+          <Button className="subButton" type="submit">
             Submit
           </Button>
         </Form>
