@@ -30,6 +30,7 @@ export default function LoginPage() {
         return;
       }
       console.log(response?.data?.id);
+      localStorage.setItem("token", response?.data?.token);
       setEmail("");
       setPassword("");
 
@@ -65,9 +66,6 @@ export default function LoginPage() {
           </Button>
         </Form>
         <div className="login-options">
-          <Link to="" className="navL">
-            Do you forgot you password?
-          </Link>
           <Link to="/register" className="navL">
             Do you want to register?
           </Link>

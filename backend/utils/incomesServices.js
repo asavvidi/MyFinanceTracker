@@ -10,8 +10,9 @@ async function getIncomes(req, res, next, Model) {
 }
 
 async function addIncome(req, res, next, Model) {
-  const { user_id, amount, source, month, year } = req.body;
-  if (!user_id) return res.status(404).send({ message: "user id is required" });
+  const { amount, source, month, year } = req.body;
+  const user_id = req.user.id;
+  if (!user_id) return res.status(403).send({ message: "Unauthorized" });
 
   /*const user = await User.findOne({ where: { id: user_id } });
   if (!user) return res.status(404).send({ message: "User not found" });*/
@@ -24,7 +25,7 @@ async function addIncome(req, res, next, Model) {
     year,
   });
   if (!newIncome)
-    return res.status(404).send({ message: "Error adding income" });
+    return res.status(500).send({ message: "Error adding income" });
   return res
     .status(201)
     .send({ message: "Income add succesfully", data: newIncome });

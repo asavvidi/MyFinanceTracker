@@ -16,8 +16,9 @@ async function registerUser(req, res, next, Model) {
     email,
     password: await bcrypt.hash(password, 15),
   });
-  if (!result) res.status(404).send({ message: `Error while register user` });
-  return res.status(201).send({ message: `Added succesfully`, user: result });
+  if (!result)
+    return res.status(404).send({ message: `Error while register user` });
+  return res.status(201).send({ message: `Added succesfully`, data: result });
 }
 
 async function getAll(req, res, next, Model) {
@@ -40,14 +41,14 @@ async function logInUser(req, res, next, Model) {
 
   const verifyPassword = await bcrypt.compare(password, user.password);
   if (!verifyPassword) {
-    res.status(404).send({ message: "Incorrect password" });
+    return res.status(404).send({ message: "Incorrect password" });
   }
 
   const token = jwt.sign({ id: user.id }, JWT_SECRET, {
     expiresIn: JWT_REFRESH_EXPIRATION || "1h",
   });
 
-  res.status(200).json({
+  return res.status(200).json({
     id: user.id,
     first_name: user.first_name,
     last_name: user.last_name,

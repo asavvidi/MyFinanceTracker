@@ -5,7 +5,7 @@
 
 :root {
   --background-main: #ffe4e1;
-  --background-form: #fff5f3;
+  --background-form: #fffefd;
   --border-color: #fff5f5;
   --border-color2: #ffc1c1;
   --highlight-font: "Noto Sans Mono", monospace;
@@ -85,6 +85,12 @@ body {
     font-family: var(--highlight-font);
     text-align: center;
     color: var(--highlight-color);
+  }
+
+  & .auth-link-container,
+  .net-link-container {
+    display: flex;
+    gap: 3rem;
   }
 }
 
@@ -219,6 +225,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 2rem;
   min-height: 15dvh;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   width: 100%;
@@ -331,11 +338,6 @@ body {
     font-size: 1.9rem;
     color: var(--background-form);
     margin-bottom: 2.5rem;
-  }
-
-  & .auth-link-container {
-    display: flex;
-    gap: 3rem;
   }
 }
 

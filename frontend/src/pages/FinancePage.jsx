@@ -6,6 +6,7 @@ import ExpensesItem from "../components/ExpensesItem";
 import Debt from "../components/Debt";
 import Chart from "../components/Chart";
 import Loader from "../components/Loader";
+import { Link } from "react-router-dom";
 import DataNotFound from "../components/DataNotFound";
 import {
   getExpenseData,
@@ -111,7 +112,7 @@ export default function FinancePage() {
   function calculateDebt() {
     const totalIncomes = calculateTotalIncomes(incomes);
     const totalExpenses = calculateTotalExpenses(expenses);
-    return totalIncomes - totalExpenses;
+    return parseFloat(totalIncomes - totalExpenses).toFixed(2);
   }
 
   useEffect(() => {
@@ -121,6 +122,14 @@ export default function FinancePage() {
   return (
     <div className="finance">
       <Header />
+      <div className="net-link-container">
+        <Link to="/incomes" className="navTo">
+          Incomes
+        </Link>
+        <Link to="/expenses" className="navTo">
+          Expenses
+        </Link>
+      </div>
       <div className="tracker">
         {isLoading && <Loader />}
         {!incomes.length && !expenses.length && !isLoading && <DataNotFound />}

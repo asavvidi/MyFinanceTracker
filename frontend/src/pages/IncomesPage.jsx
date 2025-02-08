@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { myMonths, myYears } from "../myData";
 import { Link, useNavigate } from "react-router-dom";
 import Form from "../components/Form";
 import Select from "../components/Select";
@@ -11,8 +10,6 @@ import { addIncomeData } from "../services/api";
 
 export default function IncomesPage() {
   const navigate = useNavigate();
-  const months = myMonths;
-  const years = myYears;
 
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
@@ -76,20 +73,26 @@ export default function IncomesPage() {
               value={month}
               placeholder="Month"
               onChange={(e) => setMonth(Number(e.target.value))}
-              options={months}
-            ></Select>
+            >
+              {Array.from({ length: 12 }, (_, i) => {
+                return <option key={i + 1}>{i + 1}</option>;
+              })}
+            </Select>
 
             <Select
               value={year}
               placeholder="Year"
               onChange={(e) => setYear(Number(e.target.value))}
-              options={years}
-            ></Select>
+            >
+              {Array.from({ length: 11 }, (_, i) => {
+                return <option key={i + 2015}>{i + 2015}</option>;
+              })}
+            </Select>
           </div>
           <Button
             className="subButton"
             disabled={!amount || !month || !year || !source}
-            onClick={() => navigate("/finance")}
+            onClick={() => navigate("/expenses")}
           >
             Add income
           </Button>

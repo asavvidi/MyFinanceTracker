@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { myMonths, myYears } from "../myData";
 import { Link } from "react-router-dom";
 import Form from "../components/Form";
 import InputField from "../components/InputField";
@@ -10,9 +9,6 @@ import Footer from "../components/Footer";
 import { addExpenseData } from "../services/api";
 
 export default function ExpensesPage() {
-  const months = myMonths;
-  const years = myYears;
-
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
   const [category, setCategory] = useState("");
@@ -74,15 +70,21 @@ export default function ExpensesPage() {
               value={month}
               placeholder="Month"
               onChange={(e) => setMonth(Number(e.target.value))}
-              options={months}
-            ></Select>
+            >
+              {Array.from({ length: 12 }, (_, i) => {
+                return <option key={i + 1}>{i + 1}</option>;
+              })}
+            </Select>
 
             <Select
               value={year}
               placeholder="Year"
               onChange={(e) => setYear(Number(e.target.value))}
-              options={years}
-            ></Select>
+            >
+              {Array.from({ length: 11 }, (_, i) => {
+                return <option key={i + 2015}>{i + 2015}</option>;
+              })}
+            </Select>
           </div>
           <Button className="subButton">Add expense</Button>
         </Form>

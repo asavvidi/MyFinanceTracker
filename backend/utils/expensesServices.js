@@ -8,8 +8,9 @@ async function getExpenses(req, res, next, Model) {
 }
 
 async function addExpense(req, res, next, Model) {
-  const { user_id, amount, category, month, year } = req.body;
-  if (!user_id) return res.status(404).send({ message: "user id is required" });
+  const { amount, category, month, year } = req.body;
+  const user_id = req.user.id;
+  if (!user_id) return res.status(403).send({ message: "Unauthorized" });
 
   const newExpense = await Model.create({
     user_id,
@@ -19,7 +20,7 @@ async function addExpense(req, res, next, Model) {
     year,
   });
   if (!newExpense)
-    return res.status(404).send({ message: "Error adding expense" });
+    return res.status(500).send({ message: "Error adding expense" });
   return res
     .status(201)
     .send({ message: "Expense add succesfully", data: newExpense });

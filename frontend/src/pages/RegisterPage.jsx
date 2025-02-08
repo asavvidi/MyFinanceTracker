@@ -5,7 +5,7 @@ import Form from "../components/Form";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link, useNavigate } from "react-router-dom";
-import { registerUser } from "../services/api.js";
+import { loginUser, registerUser } from "../services/api.js";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -21,8 +21,8 @@ export default function RegisterPage() {
     if (!firstName || !lastName || !email || !password) return;
 
     const newUser = {
-      firstName,
-      lastName,
+      first_name: firstName,
+      last_name: lastName,
       email,
       password,
     };
@@ -33,12 +33,19 @@ export default function RegisterPage() {
         console.log(`Register failed, no register data found`);
         return;
       }
+      console.log(`User register:`, response?.data);
+
+      const loginResponse = await loginUser({ email, password });
+      if (loginResponse?.data?.accessToken) {
+        localStorage.setItem("token", loginResponse?.data?.accessToken);
+        navigate("/incomes");
+      } else {
+        console.log(`Failed to login after register`);
+      }
       setFirstName("");
       setLastName("");
       setEmail("");
       setPassword("");
-
-      navigate("/incomes");
     } catch (error) {
       console.log("Error while trying to register user", error);
     }
