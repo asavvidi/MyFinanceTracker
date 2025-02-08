@@ -33,7 +33,7 @@ export default function FinancePage() {
 
   function handleDeleteExpense(id) {
     deleteExpenseData(id).then(() =>
-      setExpenses((prev) => prev.filter((income) => income.id !== id))
+      setExpenses((prev) => prev.filter((expense) => expense.id !== id))
     );
   }
 

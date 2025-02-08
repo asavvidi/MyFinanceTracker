@@ -47,17 +47,17 @@ async function addExpenseData(data) {
   return response;
 }
 
-async function deleteIncomeData({ id }) {
+async function deleteIncomeData(id) {
   const response = await databaseConnect
-    .delete(`api/incomes/?id=${id}`)
+    .delete(`api/incomes/${id}`)
     .catch((err) => console.log(err));
 
   return response;
 }
 
-async function deleteExpenseData({ id }) {
+async function deleteExpenseData(id) {
   const response = await databaseConnect
-    .delete(`api/expenses/?id=${id}`)
+    .delete(`api/expenses/${id}`)
     .catch((err) => console.log(err));
 
   return response;

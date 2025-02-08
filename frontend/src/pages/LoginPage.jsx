@@ -30,7 +30,7 @@ export default function LoginPage() {
         return;
       }
       console.log(response?.data?.id);
-      localStorage.setItem("token", response?.data?.token);
+      localStorage.setItem("token", response?.data?.accessToken);
       setEmail("");
       setPassword("");
 

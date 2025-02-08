@@ -4,7 +4,7 @@ export default function SocialList() {
   return (
     <div className="social-container">
       {mySocial.map((social) => {
-        return <SocialItem social={social} size={30} />;
+        return <SocialItem social={social} size={30} key={social.url} />;
       })}
     </div>
   );

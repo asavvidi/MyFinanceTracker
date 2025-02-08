@@ -491,6 +491,7 @@ body {
   gap: 2rem;
   & h1 {
     color: var(--text-color);
+    font-size: 2rem;
   }
 
   & .sureBtnCont {

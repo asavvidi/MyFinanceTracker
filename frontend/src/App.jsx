@@ -7,8 +7,15 @@ import IncomesPage from "./pages/IncomesPage";
 import ExpensesPage from "./pages/ExpensesPage";
 import FinancePage from "./pages/FinancePage";
 import PageNotFound from "./pages/PageNotFound";
+import { Navigate } from "react-router-dom";
 
 function App() {
+  function ProtectedRoute({ children }) {
+    const token = localStorage.getItem("token");
+    {
+      token ? children : <Navigate to="/login" />;
+    }
+  }
   return (
     <BrowserRouter>
       <Routes>

@@ -12,14 +12,13 @@ export default function ExpensesPage() {
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
   const [category, setCategory] = useState("");
-  const [amount, setAmound] = useState("");
+  const [amount, setAmount] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     if (!month || !year || !amount || !category) return;
     const newExpense = {
-      user_id: "697afb7d-21ec-4600-8b24-a868c9fd7ff8",
       amount,
       category,
       month,
@@ -33,7 +32,7 @@ export default function ExpensesPage() {
 
       console.log(response?.data);
 
-      setAmound("");
+      setAmount("");
       setCategory("");
       setMonth("");
       setYear("");
@@ -52,7 +51,7 @@ export default function ExpensesPage() {
             <InputField
               placeholder="Enter the amount"
               value={amount}
-              onChange={(e) => setAmound(Number(e.target.value))}
+              onChange={(e) => setAmount(Number(e.target.value))}
             />
 
             <Select
@@ -86,7 +85,12 @@ export default function ExpensesPage() {
               })}
             </Select>
           </div>
-          <Button className="subButton">Add expense</Button>
+          <Button
+            className="subButton"
+            disabled={!amount || !month || !year || !category}
+          >
+            Add expense
+          </Button>
         </Form>
         <div className="btn">
           <Link className="navTo" to="/finance">

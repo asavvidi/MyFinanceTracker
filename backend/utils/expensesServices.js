@@ -1,5 +1,6 @@
 async function getExpenses(req, res, next, Model) {
-  const expenses = await Model.findAll();
+  const userId = req.user.id;
+  const expenses = await Model.findAll({ where: { user_id: userId } });
   if (!expenses || !expenses.length)
     return res.status(404).send({ message: "Expenses not found or empty" });
   return res
@@ -27,7 +28,7 @@ async function addExpense(req, res, next, Model) {
 }
 
 async function deleteExpense(req, res, next, Model) {
-  const { id } = req.body;
+  const { id } = req.params;
   const response = await Model.destroy({ where: { id } });
   if (!response)
     return res.status(404).send({ message: "Error deleting expense" });

@@ -22,7 +22,6 @@ export default function IncomesPage() {
     if (!month || !year || !amount || !source) return;
 
     const newIncome = {
-      user_id: "697afb7d-21ec-4600-8b24-a868c9fd7ff8",
       amount,
       source,
       month,
@@ -92,13 +91,12 @@ export default function IncomesPage() {
           <Button
             className="subButton"
             disabled={!amount || !month || !year || !source}
-            onClick={() => navigate("/expenses")}
           >
             Add income
           </Button>
         </Form>
         <div className="btn">
-          <Link className="navTo" to="/finance">
+          <Link className="navTo" to="/expenses">
             Finish
           </Link>
         </div>

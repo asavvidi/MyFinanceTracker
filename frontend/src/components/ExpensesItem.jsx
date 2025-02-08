@@ -25,7 +25,7 @@ function ExpensesItem({ expense, onDelete }) {
               Are you sure? <span>🤔</span>
             </h1>
             <div className="sureBtnCont">
-              <span className="sureBtn" onClick={() => onDelete(income.id)}>
+              <span className="sureBtn" onClick={() => onDelete(expense.id)}>
                 👍
               </span>
               <span

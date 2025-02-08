@@ -26,15 +26,6 @@ export default function HomePage() {
         <Link to="/login" className="navTo">
           Login
         </Link>
-        <Link to="/incomes" className="navTo">
-          Incomes
-        </Link>
-        <Link to="/expenses" className="navTo">
-          Expenses
-        </Link>
-        <Link to="/finance" className="navTo">
-          Finance
-        </Link>
       </div>
 
       <Footer />
