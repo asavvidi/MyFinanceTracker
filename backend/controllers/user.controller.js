@@ -1,16 +1,60 @@
-import { services } from "../utils/usersAuth.js";
 import { User } from "../models/users.models.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
-function registerUser(req, res, next) {
-  services.registerUser(req, res, next, User);
+import { JWT_REFRESH_EXPIRATION, JWT_SECRET } from "../config/config.js";
+
+async function registerUser(req, res, next) {
+  const { first_name, last_name, email, password } = req.body;
+
+  const existingUser = await User.findOne({ where: { email: email } });
+  if (existingUser)
+    return res.status(404).send({ message: `Email already used` });
+  const result = await User.create({
+    first_name,
+    last_name,
+    email,
+    password: await bcrypt.hash(password, 15),
+  });
+  if (!result)
+    return res.status(404).send({ message: `Error while register user` });
+  return res.status(201).send({ message: `Added succesfully`, data: result });
 }
 
-function getAllUsers(req, res, next) {
-  services.getAll(req, res, next, User);
+async function getAllUsers(req, res, next) {
+  const allUsers = await User.findAll();
+  if (!allUsers.length)
+    return res
+      .status(404)
+      .send({ message: "Users not found or there is no user add yet" });
+  return res
+    .status(201)
+    .send({ message: "Users retrieve succesfully", data: allUsers });
 }
 
-function logInUser(req, res, next) {
-  services.logInUser(req, res, next, User);
+async function logInUser(req, res, next) {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ where: { email: email } });
+  if (!user)
+    return res.status(404).send({ message: "No user found with that email" });
+
+  const verifyPassword = await bcrypt.compare(password, user.password);
+  if (!verifyPassword) {
+    return res.status(404).send({ message: "Incorrect password" });
+  }
+
+  const token = jwt.sign({ id: user.id }, JWT_SECRET, {
+    expiresIn: JWT_REFRESH_EXPIRATION || "1h",
+  });
+
+  return res.status(200).json({
+    id: user.id,
+    first_name: user.first_name,
+    last_name: user.last_name,
+    email: user.email,
+    accessToken: token,
+  });
 }
 const userControllers = {
   registerUser,
