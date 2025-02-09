@@ -10,15 +10,19 @@ import {
   DB_USER,
 } from "./config.js";
 
+//Read package.json file to extract application metadata
 const pjs = JSON.parse(
   readFileSync(new URL("../package.json", import.meta.url))
 );
 
+//Extract project name and version
 const { name, version } = pjs;
 
+//Function to create a logger instance
 const getLogger = (serviceName, serviceVersion, level) =>
   bunyan.createLogger({ name: `${serviceName}:${serviceVersion}`, level });
 
+// Configuration object for different environments
 const config = {
   development: {
     name,
@@ -37,8 +41,10 @@ const config = {
       },
       client: null,
     },
+    // Logger instance for development
     log: () => getLogger(name, version, "debug"),
   },
+  /*
   production: {
     name,
     version,
@@ -50,7 +56,7 @@ const config = {
     version,
     serviceTimeout: 30,
     log: () => getLogger(name, version, "fatal"),
-  },
+  },*/
 };
 
 export { config };

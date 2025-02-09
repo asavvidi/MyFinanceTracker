@@ -3,6 +3,7 @@ import { database } from "../database/index.js";
 import { DataTypes } from "sequelize";
 
 //The define takes 3 arguments, the model name, the attributes we want to add to the model and also the options for the model
+//Define the user model
 const User = database.define(
   "User",
   {

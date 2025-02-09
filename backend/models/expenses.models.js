@@ -1,6 +1,7 @@
 import { database } from "../database/index.js";
 import { DataTypes } from "sequelize";
 
+//Define expense model
 const Expense = database.define(
   "Expense",
   {

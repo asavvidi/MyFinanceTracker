@@ -9,12 +9,14 @@ import { incomesRouter } from "./routes/incomes.routes.js";
 import { expensesRouter } from "./routes/expenses.routes.js";
 const app = express();
 
+//Middleware setup
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const log = config.development.log();
 
+//Function to make the database connection
 function connectToPostgres() {
   database
     .authenticate()
@@ -27,9 +29,8 @@ function connectToPostgres() {
 }
 // syncDatabase();
 connectToPostgres();
-app.get("/", (req, res) => {
-  res.send("Hello my friends");
-});
+
+//API routes
 app.use("/api/user", userRouter);
 app.use("/api/incomes", incomesRouter);
 app.use("/api/expenses", expensesRouter);
