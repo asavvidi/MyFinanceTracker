@@ -1,7 +1,5 @@
-import Button from "../components/Button";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Main from "../components/Main";
 import { Link } from "react-router-dom";
 
 export default function HomePage() {

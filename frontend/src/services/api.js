@@ -1,5 +1,6 @@
 import { databaseConnect } from "./database.js";
 
+//Send user data to the backend to register a new user
 async function registerUser(data) {
   const response = await databaseConnect
     .post("api/user/register", data)
@@ -7,6 +8,7 @@ async function registerUser(data) {
   return response;
 }
 
+//Login a user sending user data to the backend
 async function loginUser(data) {
   const response = await databaseConnect
     .post("api/user/login", data)
@@ -15,6 +17,7 @@ async function loginUser(data) {
   return response;
 }
 
+//Make a request to the backend and fetch all the income data
 async function getIncomesData() {
   const incomeResponse = await databaseConnect
     .get("api/incomes")
@@ -24,6 +27,7 @@ async function getIncomesData() {
   return incomeData;
 }
 
+//Make a request to the backend and fetch all the expense data
 async function getExpenseData() {
   const expenseResponse = await databaseConnect
     .get("api/expenses")
@@ -33,6 +37,7 @@ async function getExpenseData() {
   return expenseData;
 }
 
+// Add new income by sending income details to the backend
 async function addIncomeData(data) {
   const response = await databaseConnect
     .post("api/incomes", data)
@@ -40,6 +45,7 @@ async function addIncomeData(data) {
   return response;
 }
 
+// Add new expense by sending income details to the backend
 async function addExpenseData(data) {
   const response = await databaseConnect
     .post("api/expenses", data)
@@ -47,6 +53,7 @@ async function addExpenseData(data) {
   return response;
 }
 
+//Delete an income record by ID
 async function deleteIncomeData(id) {
   const response = await databaseConnect
     .delete(`api/incomes/${id}`)
@@ -55,6 +62,7 @@ async function deleteIncomeData(id) {
   return response;
 }
 
+//Delete an expense record by ID
 async function deleteExpenseData(id) {
   const response = await databaseConnect
     .delete(`api/expenses/${id}`)

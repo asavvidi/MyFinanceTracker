@@ -7,6 +7,7 @@ export default function Header() {
   const [isSure, setIsSure] = useState(false);
   const token = localStorage.getItem("token");
 
+  //Function to logout a user by removing his token from local storage and navigate him to the login
   function handleLogout() {
     localStorage.removeItem("token");
     navigate("/login");

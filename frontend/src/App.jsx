@@ -13,7 +13,7 @@ function App() {
   function ProtectedRoute({ children }) {
     const token = localStorage.getItem("token");
     {
-      token ? children : <Navigate to="/login" />;
+      return token ? children : <Navigate to="/login" />;
     }
   }
   return (
@@ -22,9 +22,30 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="login" element={<LoginPage />} />
-        <Route path="incomes" element={<IncomesPage />} />
-        <Route path="expenses" element={<ExpensesPage />} />
-        <Route path="finance" element={<FinancePage />} />
+        <Route
+          path="incomes"
+          element={
+            <ProtectedRoute>
+              <IncomesPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="expenses"
+          element={
+            <ProtectedRoute>
+              <ExpensesPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="finance"
+          element={
+            <ProtectedRoute>
+              <FinancePage />
+            </ProtectedRoute>
+          }
+        />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

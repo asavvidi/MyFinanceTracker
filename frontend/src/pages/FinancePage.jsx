@@ -15,24 +15,21 @@ import {
   deleteIncomeData,
 } from "../services/api.js";
 
-const URL = `http://localhost:9000`;
-
 export default function FinancePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-
   const [incomes, setIncomes] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [debt, setDebt] = useState(0);
 
-  function handleDeleteIncome(id) {
-    deleteIncomeData(id).then(() =>
+  async function handleDeleteIncome(id) {
+    await deleteIncomeData(id).then(() =>
       setIncomes((prev) => prev.filter((income) => income.id !== id))
     );
   }
 
-  function handleDeleteExpense(id) {
-    deleteExpenseData(id).then(() =>
+  async function handleDeleteExpense(id) {
+    await deleteExpenseData(id).then(() =>
       setExpenses((prev) => prev.filter((expense) => expense.id !== id))
     );
   }
@@ -57,7 +54,7 @@ export default function FinancePage() {
           throw new Error("Incomes data are not found");
         }
         const sortedData = sortNet(data);
-        console.log(sortedData);
+        // console.log(sortedData);
 
         setIncomes(sortedData);
         setError("");
@@ -82,7 +79,7 @@ export default function FinancePage() {
         if (!data) {
           throw new Error("Expenses data are not found");
         }
-        console.log(data);
+        // console.log(data);
 
         const sortedData = sortNet(data);
         setExpenses(sortedData);

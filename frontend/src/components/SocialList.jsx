@@ -1,4 +1,4 @@
-import { mySocial } from "../myData";
+import { mySocial } from "../data/myData.js";
 import SocialItem from "./SocialItem";
 export default function SocialList() {
   return (

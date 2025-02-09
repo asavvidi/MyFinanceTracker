@@ -93,9 +93,11 @@ export default function RegisterPage() {
             Submit
           </Button>
         </Form>
-        <Link to="/login" className="navL">
-          Already have an account?
-        </Link>
+        <div className="login-options">
+          <Link to="/login" className="navL">
+            Already have an account?
+          </Link>
+        </div>
       </div>
       <Footer />
     </div>

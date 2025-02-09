@@ -30,7 +30,7 @@ export default function ExpensesPage() {
         console.log(err)
       );
 
-      console.log(response?.data);
+      // console.log(response?.data);
 
       setAmount("");
       setCategory("");

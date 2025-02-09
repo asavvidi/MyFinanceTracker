@@ -29,7 +29,7 @@ export default function LoginPage() {
         console.log(`Login failed, no login data`);
         return;
       }
-      console.log(response?.data?.id);
+      // console.log(response?.data?.id);
       localStorage.setItem("token", response?.data?.accessToken);
       setEmail("");
       setPassword("");

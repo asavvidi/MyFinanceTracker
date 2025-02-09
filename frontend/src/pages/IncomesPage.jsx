@@ -33,7 +33,7 @@ export default function IncomesPage() {
         console.log(err)
       );
 
-      console.log(response?.data);
+      // console.log(response?.data);
 
       setAmount("");
       setSource("");
