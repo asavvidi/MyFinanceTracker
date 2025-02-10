@@ -91,10 +91,8 @@ npm run dev
 Once both servers are running, open your browser and navigate to:
 
 ```arduino
-http://localhost:PORT
+http://localhost:5173
 ```
-
-Replace `PORT` with the port number where your frontend server is running (e.g., `3000`).
 
 ## Managing Finances
 
